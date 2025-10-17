@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Byte&Earn - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f5f0e8 0%, #f5f0e8 50%, #a25f5f 50%, #a25f5f 65%, #c4a35a 65%, #c4a35a 80%, #4a6b8a 80%, #4a6b8a 100%);
+            padding: 20px;
+        }
+
+        .login-container {
+            background: #f5f0e8;
+            border: 4px solid #6b2c2c;
+            border-radius: 20px;
+            padding: 40px 50px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-text {
+            font-size: 48px;
+            font-weight: bold;
+            color: #6b2c2c;
+            letter-spacing: -2px;
+        }
+
+        .logo-plate {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .plate-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid #6b2c2c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .fork, .knife {
+            width: 2px;
+            height: 20px;
+            background: #6b2c2c;
+            position: absolute;
+        }
+
+        .fork { left: 12px; }
+        .knife { right: 12px; }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #6b2c2c;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: transparent;
+            border: none;
+            font-size: 16px;
+            color: #6b2c2c;
+        }
+
+        .tab.active {
+            background: #6b2c2c;
+            color: #f5f0e8;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            position: absolute;
+            left: 15px;
+            color: #f5f0e8;
+            font-size: 18px;
+            z-index: 1;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px 15px 15px 50px;
+            border: none;
+            border-radius: 25px;
+            background: #6b2c2c;
+            color: #f5f0e8;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        select option {
+            background: #6b2c2c;
+            color: #f5f0e8;
+        }
+
+        input::placeholder {
+            color: rgba(245, 240, 232, 0.7);
+        }
+
+        input:focus, select:focus {
+            box-shadow: 0 0 0 3px rgba(107, 44, 44, 0.3);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #6b2c2c;
+            color: #f5f0e8;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            background: #4a1f1f;
+            transform: translateY(-2px);
+        }
+
+        .link-text {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .link-text a {
+            color: #6b2c2c;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .link-text a:hover {
+            color: #4a6b8a;
+            text-decoration: underline;
+        }
+
+        .form-content {
+            display: none;
+        }
+
+        .form-content.active {
+            display: block;
+        }
+
+        .info-text {
+            text-align: center;
+            color: #6b2c2c;
+            font-size: 13px;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 25px;
+            }
+
+            .logo-text {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <div class="logo-text">
+                <img src="/img/byte_earn.png" alt="sss" width="40%" height="40%">
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab" onclick="showTab('login')">LOG IN</button>
+            <button class="tab active" onclick="showTab('signup')">SIGN UP</button>
+        </div>
+
+        <form id="loginForm" class="form-content">
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <span class="icon">👤</span>
+                    <input type="text" placeholder="Enter ID Number" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <span class="icon">🔒</span>
+                    <input type="password" placeholder="Enter Password" required>
+                </div>
+            </div>
+            <button type="submit" class="submit-btn">LOG IN</button>
+            <div class="link-text">
+                <a href="#" onclick="showTab('signup')">Don't have an account? Sign up</a>
+            </div>
+        </form>
+
+        <form id="signupForm" class="form-content active" onsubmit="handleSignup(event)">
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <span class="icon">👤</span>
+                    <input type="text" id="signupId" placeholder="Enter ID Number" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <span class="icon">✏️</span>
+                    <input type="text" id="signupFirstName" placeholder="First Name" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <span class="icon">✏️</span>
+                    <input type="text" id="signupLastName" placeholder="Last Name" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <span class="icon">🎓</span>
+                    <select id="signupProgram" required>
+                        <option value="BEED">Bachelor of Elementary Education</option>
+        <option value="BSED-Math">Bachelor of Secondary Education - Major in Mathematics </option>
+        <option value="BTLED-HE">Bachelor of Technology and Livelihood Education - Major in Home Economics</option>
+        <option value="BSIT">Bachelor of Science in Information Technology</option>
+        <option value="BSIE">Bachelor of Science in Industrial Engineering</option>
+        <option value="BSHM">Bachelor of Science in Hospitality Management</option>
+        <option value="BSFi">Bachelor of Science in Fisheries</option>
+        <option value="BIT-CompTech">Bachelor of Industrial Technology - Major in Computer Technology </option>
+        <option value="BIT-Automotive">Bachelor of Industrial Technology Major in Automotive</option>
+        <option value="BIT-Elex">Bachelor of Industrial Technology - Major in Electronics</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <span class="icon">🎂</span>
+                    <input type="date" id="signupBirthdate" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <span class="icon">🔒</span>
+                    <input type="password" id="signupPassword" placeholder="Enter Password (min 6 chars)" required minlength="6">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <span class="icon">🔒</span>
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required minlength="6">
+                </div>
+            </div>
+            <button type="submit" class="submit-btn">SIGN UP</button>
+            <div class="link-text">
+                <a href="#" onclick="showTab('login')">Already have an account? Log in</a>
+            </div>
+            <div class="info-text">
+                Create an account to start earning rewards with every purchase!<br>
+                ₱50 spent = 1 reward point
+            </div>
+        </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        function showTab(tab) {
+            const tabs = document.querySelectorAll('.tab');
+            const forms = document.querySelectorAll('.form-content');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            forms.forEach(f => f.classList.remove('active'));
+            
+            if (tab === 'login') {
+                tabs[0].classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('signupForm').classList.add('active');
+            }
+        }
+
+        async function handleSignup(e) {
+            e.preventDefault();
+            
+            const idNumber = document.getElementById('signupId').value.trim();
+            const firstName = document.getElementById('signupFirstName').value.trim();
+            const lastName = document.getElementById('signupLastName').value.trim();
+            const program = document.getElementById('signupProgram').value;
+            const birthdate = document.getElementById('signupBirthdate').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Basic validation
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters!');
+                return;
+            }
+            if (!birthdate || new Date(birthdate) > new Date()) {
+                alert('Please enter a valid birthdate (not in the future)!');
+                return;
+            }
+            if (!firstName || !lastName || !program) {
+                alert('Please fill in all profile fields!');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ idNumber, firstName, lastName, program, birthdate, password })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    alert(data.message);
+                    showTab('login');
+                    // Clear form
+                    e.target.reset();
+                } else {
+                    alert(data.message);
+                }
+            } catch (err) {
+                alert('Error creating account: ' + err.message);
+            }
+        }
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const idNumberInput = this.querySelector('input[type="text"]');
+            const passwordInput = this.querySelector('input[type="password"]');
+            const idNumber = idNumberInput.value.trim();
+            const password = passwordInput.value;
+            
+            if (!idNumber || !password) {
+                alert('Please enter ID and password!');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ idNumber, password })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    window.location.href = '/dashboard';
+                } else {
+                    alert(data.message);
+                }
+            } catch (err) {
+                alert('Login error: ' + err.message);
+            }
+        });
+
+        // Set max date for birthdate to today
+        document.addEventListener('DOMContentLoaded', () => {
+            const birthdateInput = document.getElementById('signupBirthdate');
+            birthdateInput.max = new Date().toISOString().split('T')[0];
+        });
+    </script>
+</body>
+</html>
